@@ -1,0 +1,57 @@
+.MenuMain {
+    width: 80%;
+    display: grid;
+    grid-template-rows: auto auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.MenuMainTop {
+    display: grid;
+    grid-template-columns: 150px auto 100px 100px;
+    align-items: center;
+}
+
+.InputSearch {
+    display: block;
+    width: 100%;
+    border: none;
+    height: 30px;
+}
+
+.IconNotification {
+    color: white;
+}
+
+.DivIconNotification {
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+}
+
+.DivUser {
+    border: 2px solid white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    color: white;
+}
+
+.menu-item {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+li {
+    list-style: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0px 15px 0px 15px;
+    text-decoration: none;
+}

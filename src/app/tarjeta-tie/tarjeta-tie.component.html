@@ -1,0 +1,54 @@
+<!-- <ul>
+    <li *ngFor="let item of solicitudes;">
+        {{item.codigo_peaje}}
+    </li>
+</ul> -->
+<!-- <mat-tab-group>
+    <mat-tab label="First"> Content 1 </mat-tab>
+    <mat-tab label="Second"> Content 2 </mat-tab>
+    <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group> -->
+
+
+<mat-tab-group>
+    <mat-tab label="Nuevo">
+        <div class="container-table">
+
+            <table mat-table [dataSource]="solicitudes" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="codigo_peaje">
+                    <th mat-header-cell *matHeaderCellDef> Codigo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.codigo_peaje}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="placa_vehiculo">
+                    <th mat-header-cell *matHeaderCellDef> placa </th>
+                    <td mat-cell *matCellDef="let element"> {{element.placa_vehiculo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="marca_vehiculo">
+                    <th mat-header-cell *matHeaderCellDef> Marca </th>
+                    <td mat-cell *matCellDef="let element"> {{element.marca_vehiculo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Accion </th>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-button>Edit</button>
+                    </mat-cell>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+        </div>
+
+    </mat-tab>
+    <mat-tab label="Reposicion">
+
+    </mat-tab>
+    <mat-tab label="Inactivar">
+
+    </mat-tab>
+</mat-tab-group>

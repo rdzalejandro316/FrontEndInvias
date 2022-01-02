@@ -1,0 +1,23 @@
+.cardmain {
+    margin: 50px;
+    display: grid;
+    grid-template-rows: 20px 20px 20px 20px 20px;
+    grid-template-columns: 100px 200px 100px 200px 100px 200px auto;
+    grid-row-gap: 10px;
+}
+
+.title_soli {
+    color: var(--color-main);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.title {
+    text-align: right;
+    font-weight: bold;
+}
+
+.value {
+    text-align: left;
+    margin-left: 10px;
+}
