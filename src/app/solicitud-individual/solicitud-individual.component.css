@@ -1,9 +1,34 @@
 .cardmain {
     margin: 50px;
     display: grid;
-    grid-template-rows: 20px 20px 20px 20px 20px;
+    grid-template-rows: REPEAT(5, 30px);
     grid-template-columns: 100px 200px 100px 200px 100px 200px auto;
     grid-row-gap: 10px;
+}
+
+.titleMain {
+    color: var(--color-main);
+    font-weight: bold;
+    font-size: 50px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.ContainerOptions {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.titleSecond {
+    color: var(--color-main);
+    font-size: 25px;
+    margin-left: 50px;
+    align-self: center;
+}
+
+.BtnNewSoli {
+    justify-self: end;
+    margin-right: 50px !important;
 }
 
 .title_soli {
@@ -15,9 +40,30 @@
 .title {
     text-align: right;
     font-weight: bold;
+    align-self: center;
 }
 
 .value {
     text-align: left;
     margin-left: 10px;
+    align-self: center;
+}
+
+.BtnStyle {
+    background-color: white;
+    border-color: var(--color-main);
+    color: var(--color-main);
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.BtnStyleNew {
+    background-color: var(--color-main);
+    color: white;
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 10px;
 }
