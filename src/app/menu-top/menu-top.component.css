@@ -12,6 +12,10 @@
     align-items: center;
 }
 
+.MenuMainBottom {
+    align-self: center;
+}
+
 .InputSearch {
     display: block;
     width: 100%;

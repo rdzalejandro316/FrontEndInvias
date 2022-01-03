@@ -2,7 +2,7 @@
     <h1 class="titleMain">solicitudes</h1>
     <div class="ContainerOptions">
         <p class="titleSecond">solicitudes en proceso</p>
-        <button mat-raised-button class="BtnNewSoli BtnStyleNew">Nueva Solicitud</button>
+        <button mat-raised-button class="BtnNewSoli BtnStyleNew" (click)="NewTie()">Nueva Solicitud</button>
     </div>
 </div>
 
@@ -38,9 +38,12 @@
         <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '6 / 6' }" class="value">{{item.color}}</p>
 
         <div [ngStyle]="{'grid-row': '1/6', 'grid-column': '7 / 7','align-self': 'center','text-align': 'center' }">
-            <button mat-stroked-button class="BtnStyle">Gestionar</button>
-            <button mat-stroked-button class="BtnStyle">Cancelar</button>
+            <button mat-stroked-button class="BtnStyle">Gestionar {{showPopUp}}</button>
+            <button mat-stroked-button class="BtnStyle" (click)="CancelTie()">Cancelar</button>
         </div>
 
     </mat-card>
 </div>
+
+<app-pop-up-message [ShowPopUp]=showPopUp [PopUpTitle]=titlePopUp [PopUpMessage]=messagePopUp [tipo]=tipo (newItemEvent)="ClosePopUp($event)">
+</app-pop-up-message>

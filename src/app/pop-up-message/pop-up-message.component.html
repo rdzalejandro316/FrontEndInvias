@@ -1,0 +1,20 @@
+<div *ngIf="ShowPopUp" id="popup1" class="overlay">
+    <div class="popup">
+
+        <div [ngSwitch]="tipo" class="ContainericonPopUp">
+            <mat-icon *ngSwitchCase="TypesPopUp.OK" class="iconPopUp" [ngStyle]="{'color': 'green'}">check_circle</mat-icon>
+            <mat-icon *ngSwitchCase="TypesPopUp.Fail" class="iconPopUp" [ngStyle]="{'color': 'red'}">error</mat-icon>
+            <mat-icon *ngSwitchDefault class="iconPopUp">check_circle</mat-icon>
+        </div>
+
+
+        <h1 class="title" [ngStyle]="{'color':getColor(tipo)}">{{PopUpTitle}}</h1>
+
+        <div class="content">
+            {{PopUpMessage}}
+        </div>
+
+        <button mat-stroked-button class="btnStlyePopUp" (click)="ClosePopUp(false)">OK</button>
+
+    </div>
+</div>

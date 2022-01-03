@@ -51,6 +51,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { MenuTopComponent } from './menu-top/menu-top.component';
 import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-individual.component';
+import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-i
     TarjetaTieComponent,
     PeajesComponent,
     MenuTopComponent,
-    SolicitudIndividualComponent
+    SolicitudIndividualComponent,
+    PopUpMessageComponent
   ],
   imports: [
     BrowserModule,
