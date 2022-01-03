@@ -1,8 +1,58 @@
-.container-table
-{
-margin: 10px;
+.ContainerMain {
+    display: grid;
+    grid-template-rows: 150px auto;
+}
+
+.ContainerFilter {
+    display: grid;
+    grid-template-columns: auto 300px;
+    background-color: whitesmoke;
+}
+
+.FilterOptions {
+    margin-left: 50px;
+    align-self: center;
+}
+
+.filtrostyle {
+    margin: 0px 10px 0px 10px;
+}
+
+.ContainerBtnTable {
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.BtnStyleFilter {
+    margin: 5px;
+    background-color: var(--color-main);
+    color: white;
+}
+
+.container-table {
+    margin: 50px;
 }
 
 table {
     width: 100%;
-  }
+}
+
+.columnStyle {
+    color: black;
+    font-weight: bold;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.columnValue {
+    vertical-align: middle;
+}
+
+.BtnStyleGrid {
+    margin: 5px;
+    background-color: white;
+    border-color: var(--color-main);
+    color: var(--color-main);
+}

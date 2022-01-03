@@ -14,6 +14,7 @@ import { PeajesComponent } from './peajes/peajes.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 //angular
+import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -54,6 +55,7 @@ import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-i
 import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +71,7 @@ import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component
     NoopAnimationsModule,
     HttpClientModule,
 
+    MatFormFieldModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,

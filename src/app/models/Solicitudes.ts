@@ -1,7 +1,9 @@
 export class Solicitudes_tie{
-    id_solicitud: number  = 0;
     fecha: string = "";
-    codigo_peaje: string = "";
+    id_solicitud: number  = 0;
+    nombre_peticionario: string = "";
+    tipo_peticionario: string = "";
+    nombre_peaje: string = "";
     placa_vehiculo : string = "";
     marca_vehiculo: string = "";
     color: string = "";

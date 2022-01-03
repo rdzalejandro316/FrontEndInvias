@@ -1,6 +1,6 @@
 import { Component, OnInit, Input , Output , EventEmitter} from '@angular/core';
 
-import { TypesPopUp } from '../models/Helpers';
+import { TypesPopUp } from '../shared/Helpers';
 
 @Component({
   selector: 'app-pop-up-message',

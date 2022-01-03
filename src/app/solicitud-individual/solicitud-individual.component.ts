@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Solicitudes_tie } from '../models/Solicitudes'
-import { TypesPopUp } from '../models/Helpers';
+import { TypesPopUp } from '../shared/Helpers';
 
 
 @Component({
