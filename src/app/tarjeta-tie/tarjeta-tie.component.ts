@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 
-import { Solicitudes_tie,SolicitudesIterno,EstadoSolicitudes } from '../models/Solicitudes'
+import { SolicitudesIterno, EstadoSolicitudes } from '../models/Solicitudes'
 import { MatTableDataSource } from '@angular/material/table';
 import { RepositoryService } from '../shared/repository.service';
 
@@ -21,16 +21,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
-  
-  displayedColumns: string[] = ['check','id_solicitud', 'fecha', 'nombre_peticionario', 'tipo_peticionario', 'nombre_peaje','placa_vehiculo','opciones'];
 
-  // TABLE 
+  displayedColumns: string[] = ['check', 'id_solicitud', 'fecha', 'nombre_peticionario', 'tipo_peticionario', 'nombre_peaje', 'estado_tie_interno', 'placa_vehiculo', 'opciones'];
 
-   form = new FormGroup({
-    first: new FormControl('Nancy', Validators.minLength(2)),
-    last: new FormControl('Drew'),
-  });
-  
   //#region solicitudes
   public dataSourceSolictud = new MatTableDataSource<SolicitudesIterno>();
   @ViewChild(MatSort) sort: MatSort = new MatSort();
@@ -42,8 +35,15 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
   public dataSourceAprobadas = new MatTableDataSource<SolicitudesIterno>();
   //#endregion
 
+  //#region  autorizada
+  public dataSourceAutorizada = new MatTableDataSource<SolicitudesIterno>();
+  //#endregion
 
-  @ViewChild('TABLE') table!: ElementRef;
+  //#region Rechazada
+  public dataSourceRechazada = new MatTableDataSource<SolicitudesIterno>();
+  //#endregion
+
+  @ViewChild('TABLE1') table!: ElementRef;
   @ViewChild('InpIdSolicitud') InpIdSolicitud!: ElementRef;
   @ViewChild('InpFecha') InpFecha!: ElementRef;
   @ViewChild('InpPeticionario') InpPeticionario!: ElementRef;
@@ -51,11 +51,13 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
   @ViewChild('InpPeaje') InpPeaje!: ElementRef;
   @ViewChild('InpEstado') InpEstado!: ElementRef;
 
-  constructor(private repoService: RepositoryService,private http: HttpClient) { }
+  constructor(private repoService: RepositoryService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getAllOwners();
-
+    this.getAllSolicitudes();
+    this.getAllAprobadas();
+    this.getAllAutorizada();
+    this.getAllRechazada();
   }
 
 
@@ -64,11 +66,20 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
     this.dataSourceSolictud.paginator = this.paginator;
   }
 
-  public getAllOwners = () => {
-    
-    this.repoService.getData('solicitudes/solicitadas').subscribe(res => {this.dataSourceSolictud.data = res as SolicitudesIterno[];})
-    this.repoService.getData('solicitudes/aprobadas').subscribe(res => {this.dataSourceAprobadas.data = res as SolicitudesIterno[];})
-    
+  public getAllSolicitudes = () => {
+    this.repoService.getData('solicitudes/solicitadas').subscribe(res => { this.dataSourceSolictud.data = res as SolicitudesIterno[]; })
+  }
+
+  public getAllAprobadas = () => {
+    this.repoService.getData('solicitudes/aprobadas').subscribe(res => { this.dataSourceAprobadas.data = res as SolicitudesIterno[]; })
+  }
+
+  public getAllAutorizada = () => {
+    this.repoService.getData('solicitudes/autorizada').subscribe(res => { this.dataSourceAutorizada.data = res as SolicitudesIterno[]; })
+  }
+
+  public getAllRechazada = () => {
+    this.repoService.getData('solicitudes/rechazada').subscribe(res => { this.dataSourceRechazada.data = res as SolicitudesIterno[]; })
   }
 
   //#region  filtros
@@ -90,14 +101,13 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
         break;
       case FilterTypes.peaje:
         this.dataSourceSolictud.filterPredicate = function (data, filter: string): boolean { return data.nombre_peaje.toLowerCase().includes(filter); };
-        break;      
+        break;
     }
-    
+
     this.dataSourceSolictud.filter = value.trim().toLocaleLowerCase();
   }
 
-  ClearFilters()
-  {
+  ClearFilters() {
     this.InpIdSolicitud.nativeElement.value = '';
     this.InpIdSolicitud.nativeElement.value = '';
     this.InpFecha.nativeElement.value = '';
@@ -109,92 +119,200 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
     this.dataSourceSolictud.filter = "";
   }
 
-  ExportTable()
-  {
+  ExportTable() {
     try {
-      
-      const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);      
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();      
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');                
+
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       XLSX.writeFile(wb, 'solicitudes.xlsx');
     }
     catch (e) {
       window.alert("error XD:" + e);
-    }    
+    }
   }
 
 
   //#endregion 
 
-  postId:number =  0;
 
-  Accept(idest: number,id_solicitud: number)
-  {
-    try 
-    {
-      var c = confirm('Confirm?');
-      
-      if(c)
-      {
-          //window.alert("sii"+id_solicitud);
 
-        // const estados = new EstadoSolicitudes();
-        // estados.idestado = idest;
-        // estados.check_estado = true;
+  Accept(idest: number, id_solicitud: number) {
+    try {
 
-        const estados = { 
+      var message = confirm('Usted desea aprobar la solicitud ' + id_solicitud + '?');
+
+      if (message) {
+
+
+        const estados = {
           idestado: idest,
           check_estado: true
         };
-        
 
-        var a = this.repoService.update('solicitudes/estadoanterior',estados);
-        //var a = this.repoService.updateReturnConf('solicitudes/estadoanterior',estados);
-        
-    
-        //  this.http.put<any>('https://localhost:44330/solicitudes/estadoanterior', estados)
-        // .subscribe(data => this.postId = data.id);
-
-        // this.http.put<any>('https://localhost:44330/solicitudes/estadoanterior', estados)
-        // .subscribe();
-        window.alert("AAA:"+a);
-
-
-
+        var a = this.repoService.update('solicitudes/estadoanterior', estados);
 
         /////////// insert estado
+        var date = new Date();
 
-        const estados_nuevos = { 
+        const estados_nuevos = {
           id_solicitud_estado: id_solicitud,
-          estado: "",
-          fecha_estado: "2022-01-04T00:00:00",
-          check_estado: true,
+          estado: "Aprobada",
+          //fecha_estado: "2022-01-05T00:00:00",
+          fecha_estado: date.toISOString(),
+          check_estado: false,
           estado_tie_interno: "",
           nota: "",
         };
 
-        var b= this.repoService.create('solicitudes/nuevoestado',estados_nuevos);
-        window.alert("BBB:"+b);
+        var b = this.repoService.create('solicitudes/nuevoestado', estados_nuevos);
 
+        window.alert("la solicitud fue aprobada con exito");
 
-        
-      }
-      else
-      {
-        ///window.alert("no");
+        this.getAllSolicitudes();
+        this.getAllAprobadas();
+        this.getAllRechazada();
       }
 
     }
     catch (e) {
-      window.alert("error XD:" + e);
+      window.alert("error EN Accept:" + e);
     }
   }
 
-  Cancel()
-  {
+  Cancel(idest: number, id_solicitud: number) {
 
+    try {
 
+      var message = confirm('Usted desea rechazar la solicitud ' + id_solicitud + '?');
+
+      if (message) {
+
+        const estados = {
+          idestado: idest,
+          check_estado: true
+        };
+
+        var a = this.repoService.update('solicitudes/estadoanterior', estados);
+
+        /////////// insert estado
+        var date = new Date();
+
+        const estados_nuevos = {
+          id_solicitud_estado: id_solicitud,
+          estado: "Rechazada",
+          //fecha_estado: "2022-01-05T00:00:00",
+          fecha_estado: date.toISOString(),
+          check_estado: false,
+          estado_tie_interno: "",
+          nota: "",
+        };
+
+        var b = this.repoService.create('solicitudes/nuevoestado', estados_nuevos);
+
+        window.alert("la solicitud fue rechazada con exito");
+
+        this.getAllSolicitudes();
+        this.getAllAprobadas();
+        this.getAllRechazada();
+
+      }
+
+    }
+    catch (e) {
+      window.alert("error EN Accept:" + e);
+    }
   }
+
+
+  Accept2(idest: number, id_solicitud: number) {
+    try {
+
+      var message = confirm('Usted desea autorizar la solicitud ' + id_solicitud + '?');
+
+      if (message) {
+
+
+        const estados = {
+          idestado: idest,
+          check_estado: true
+        };
+
+        var a = this.repoService.update('solicitudes/estadoanterior', estados);
+
+        /////////// insert estado
+        var date = new Date();
+
+        const estados_nuevos = {
+          id_solicitud_estado: id_solicitud,
+          estado: "Aprobada",
+          //fecha_estado: "2022-01-05T00:00:00",
+          fecha_estado: date.toISOString(),
+          check_estado: false,
+          estado_tie_interno: "",
+          nota: "",
+        };
+
+        var b = this.repoService.create('solicitudes/nuevoestado', estados_nuevos);
+
+        window.alert("la solicitud fue autorizada con exito");
+
+        this.getAllSolicitudes();
+        this.getAllAprobadas();
+        this.getAllRechazada();
+
+      }
+
+    }
+    catch (e) {
+      window.alert("error EN Accept:" + e);
+    }
+  }
+
+  Cancel2(idest: number, id_solicitud: number) {
+
+    try {
+
+      var message = confirm('Usted desea rechazar la solicitud ' + id_solicitud + '?');
+
+      if (message) {
+
+        const estados = {
+          idestado: idest,
+          check_estado: true
+        };
+
+        var a = this.repoService.update('solicitudes/estadoanterior', estados);
+
+        /////////// insert estado
+        var date = new Date();
+
+        const estados_nuevos = {
+          id_solicitud_estado: id_solicitud,
+          estado: "Rechazada",
+          //fecha_estado: "2022-01-05T00:00:00",
+          fecha_estado: date.toISOString(),
+          check_estado: false,
+          estado_tie_interno: "",
+          nota: "",
+        };
+
+        var b = this.repoService.create('solicitudes/nuevoestado', estados_nuevos);
+
+        window.alert("la solicitud fue rechazada con exito");
+
+        this.getAllSolicitudes();
+        this.getAllAprobadas();
+        this.getAllRechazada();
+
+      }
+
+    }
+    catch (e) {
+      window.alert("error EN Accept:" + e);
+    }
+  }
+
 
 }
 

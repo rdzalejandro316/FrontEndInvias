@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Solicitudes_tie } from '../models/Solicitudes'
+import { SolicitudesIterno } from '../models/Solicitudes'
 import { TypesPopUp } from '../shared/Helpers';
 import { RepositoryService } from '../shared/repository.service';
 
@@ -21,14 +21,14 @@ export class SolicitudIndividualComponent implements OnInit {
 
   //#endregion
 
-  solicitudes: Solicitudes_tie[] = [];
+  solicitudes: SolicitudesIterno[] = [];
   constructor(private repoService: RepositoryService) { }
 
   ngOnInit(): void 
   {
 
     this.repoService.getData('solicitudes/individual_peticionario?idpet=1033796537')
-    .subscribe((data) => { this.solicitudes = data as Solicitudes_tie[]; });
+    .subscribe((data) => { this.solicitudes = data as SolicitudesIterno[]; });
 
   }
 
