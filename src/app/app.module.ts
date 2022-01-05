@@ -10,6 +10,9 @@ import { TarjetaTieComponent } from './tarjeta-tie/tarjeta-tie.component';
 import { PeajesComponent } from './peajes/peajes.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FormsModule } from '@angular/forms';  // <<<< import it here
+
+
 //angular
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -50,6 +53,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { MenuTopComponent } from './menu-top/menu-top.component';
 import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-individual.component';
 import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component';
+import { SolicitudesInternoComponent } from './solicitudes-interno/solicitudes-interno.component';
 
 
 
@@ -60,13 +64,16 @@ import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component
     PeajesComponent,
     MenuTopComponent,
     SolicitudIndividualComponent,
-    PopUpMessageComponent
+    PopUpMessageComponent,
+    SolicitudesInternoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     HttpClientModule,
+
+    FormsModule,
 
     MatFormFieldModule,
     MatAutocompleteModule,

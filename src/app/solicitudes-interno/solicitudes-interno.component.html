@@ -1,0 +1,30 @@
+<mat-tab-group>
+
+    <mat-tab label="Solicitadas">
+        <app-tarjeta-tie #TieSolicitud [estadoInput]=Solicitada [UrlStateTie]=UrlSolicitada [BtnAccept]=BtnAceptSolicitud [BtnCancel]=BtnCancelSolicitud (newItemEvent)="sucesfullChangeState($event)">
+
+        </app-tarjeta-tie>
+    </mat-tab>
+
+    <mat-tab label="Aprobadas">
+        <app-tarjeta-tie #TieAprobadas [estadoInput]=Aprobada [UrlStateTie]=UrlAprobada [BtnAccept]=BtnAceptAprobada [BtnCancel]=BtnCancelAprobada (newItemEvent)="sucesfullChangeState($event)">
+
+        </app-tarjeta-tie>
+    </mat-tab>
+
+    <mat-tab label="Autorizadas">
+        <app-tarjeta-tie #TieAutorizadas [estadoInput]=Autorizada [UrlStateTie]=UrlAutorizada [BtnAccept]=BtnAceptRechazada [BtnCancel]=BtnCancelRechazada>
+
+        </app-tarjeta-tie>
+    </mat-tab>
+
+    <mat-tab label="Rechazadas">
+        <app-tarjeta-tie #TieRechazadas [estadoInput]=Rechazada [UrlStateTie]=UrlRechazada [BtnAccept]=BtnAceptRechazada [BtnCancel]=BtnCancelRechazada>
+
+        </app-tarjeta-tie>
+    </mat-tab>
+
+    <mat-tab label="Canceladas">
+
+    </mat-tab>
+</mat-tab-group>

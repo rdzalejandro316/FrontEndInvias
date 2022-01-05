@@ -1,3 +1,5 @@
+import { TileCoordinator } from "@angular/material/grid-list/tile-coordinator";
+
 export enum TypesPopUp {
     OK,
     Fail,
@@ -14,4 +16,24 @@ export enum TypesPopUp {
     estado
   }
 
+  export enum StateTie {
+    Ninguna = "Ninguna",
+    Solicitada = "Solicitada",
+    Aprobada = "Aprobada",
+    Autorizada = "Autorizada",
+    Rechazada = "Rechazada",
+    Cancelada = "Cancelada"
+  }
 
+  export class BtnStateType 
+  {
+    
+    constructor(visible:boolean,titulo:string) {
+      this.visible = visible;
+      this.titulo = titulo;
+
+    }
+
+    visible:boolean = true;
+    titulo:string = '';
+  }
