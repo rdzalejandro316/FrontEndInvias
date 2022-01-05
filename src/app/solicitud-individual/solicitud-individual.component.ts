@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Solicitudes_tie } from '../models/Solicitudes'
 import { TypesPopUp } from '../shared/Helpers';
-
+import { RepositoryService } from '../shared/repository.service';
 
 @Component({
   selector: 'app-solicitud-individual',
@@ -22,19 +22,14 @@ export class SolicitudIndividualComponent implements OnInit {
   //#endregion
 
   solicitudes: Solicitudes_tie[] = [];
-  constructor(private http: HttpClient) { }
+  constructor(private repoService: RepositoryService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-        'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token'
-      })
-    };
+    this.repoService.getData('solicitudes/individual_peticionario?idpet=1033796537')
+    .subscribe((data) => { this.solicitudes = data as Solicitudes_tie[]; });
 
-    this.http.get<Solicitudes_tie[]>('https://gestiotie.azurewebsites.net/solicitudes/individual_peticionario?idpet=1033796537', httpOptions).subscribe((data) => { this.solicitudes = data; });
   }
 
 

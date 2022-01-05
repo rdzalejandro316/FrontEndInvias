@@ -5,9 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-
-
-
 import { AppComponent } from './app.component';
 import { TarjetaTieComponent } from './tarjeta-tie/tarjeta-tie.component';
 import { PeajesComponent } from './peajes/peajes.component';

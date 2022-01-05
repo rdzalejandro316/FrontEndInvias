@@ -56,3 +56,17 @@ table {
     border-color: var(--color-main);
     color: var(--color-main);
 }
+
+.BtnStyleGridAcept {
+    margin: 5px;
+    background-color: var(--color-ok);
+    border-color: var(--color-ok);
+    color: white;
+}
+
+.BtnStyleGridCancel {
+    margin: 5px;
+    background-color: var(--color-fail);
+    border-color: var(--color-fail);
+    color: white;
+}

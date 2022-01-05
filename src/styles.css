@@ -2,6 +2,8 @@
 
 :root {
     --color-main: #3366cc;
+    --color-ok: #27ae60;
+    --color-fail: #e74c3c;
 }
 
 html,
