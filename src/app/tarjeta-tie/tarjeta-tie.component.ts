@@ -11,7 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { FilterTypes, StateTie, BtnStateType, InterventoriaParamentros } from '../shared/Helpers';
 
 import * as XLSX from 'xlsx';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -59,7 +59,7 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
   //#endregion
 
-  constructor(private repoService: RepositoryService) { }
+  constructor(private repoService: RepositoryService,private router: Router) { }
 
   ngOnInit(): void {
     this.getAllTieState();
@@ -259,6 +259,12 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
   }
 
+
+  Detalle(idsolicitud:number){
+    this.router.navigateByUrl('/detalle-solicitud/'+idsolicitud);
+    
+      
+  }
 
 
 }

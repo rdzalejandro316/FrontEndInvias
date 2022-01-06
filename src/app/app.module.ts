@@ -55,6 +55,7 @@ import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-i
 import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component';
 import { SolicitudesInternoComponent } from './solicitudes-interno/solicitudes-interno.component';
 import { InterventoriaComponent } from './interventoria/interventoria.component';
+import { DetalleSolicitudComponent } from './detalle-solicitud/detalle-solicitud.component';
 
 
 
@@ -67,7 +68,8 @@ import { InterventoriaComponent } from './interventoria/interventoria.component'
     SolicitudIndividualComponent,
     PopUpMessageComponent,
     SolicitudesInternoComponent,
-    InterventoriaComponent
+    InterventoriaComponent,
+    DetalleSolicitudComponent
   ],
   imports: [
     BrowserModule,

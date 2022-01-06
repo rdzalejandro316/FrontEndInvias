@@ -1,0 +1,75 @@
+<button mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click)="goBack()">
+    <div class="ContainerPath">
+        <mat-icon class="BtnBack">keyboard_backspace</mat-icon>
+        <p class="titleBack">Ir a las solicitudes</p>
+    </div>
+</button>
+
+<div class="ContainerDetaller">
+
+    <div class="DetallePeticionario">
+        <h1 class="TitleDetail">SOLICITUD #{{detalleSolicitud.id_solicitud}}</h1>
+
+        <mat-card class="cardmain example-card mat-elevation-z8">
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '1 / 1'}" class="title">DOCU :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '2 / 2' }" class="value">{{detalleSolicitud.id_peticionario}}</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '3 / 3' }" class="title">FECHA :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '4 / 4' }" class="value">{{detalleSolicitud.fecha | date:'yyyy-MM-dd'}}</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '5 / 5' }" class="title">CORREO :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '6 / 6' }" class="value">XXXX</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '7 / 7' }" class="title">PEAJES :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '8 / 8' }" class="value">{{detalleSolicitud.nombre_peaje}}</p>
+
+
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '1 / 1' }" class="title">DEPARTAMENTO :</p>
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '2 / 2' }" class="value">XXXX</p>
+
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '3 / 3' }" class="title">MUNICIPIO :</p>
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '4 / 4' }" class="value">XXXX</p>
+
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '5 / 5' }" class="title">TELEFONO :</p>
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '6 / 6' }" class="value">XXXX</p>
+
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '7 / 7' }" class="title">DIRECCION :</p>
+            <p [ngStyle]="{'grid-row': '3/3', 'grid-column': '8 / 8' }" class="value">XXXX</p>
+
+
+            <p [ngStyle]="{'grid-row': '4/4', 'grid-column': '1 / 1' }" class="title">NOMBRE EMPRESA :</p>
+            <p [ngStyle]="{'grid-row': '4/4', 'grid-column': '2 / 2' }" class="value">{{detalleSolicitud.nombre_peticionario}}</p>
+
+            <p [ngStyle]="{'grid-row': '4/4', 'grid-column': '3 / 3' }" class="title">APELLIDO :</p>
+            <p [ngStyle]="{'grid-row': '4/4', 'grid-column': '4 / 4' }" class="value">XXXX</p>
+
+        </mat-card>
+    </div>
+
+    <div class="DetalleVehiculo">
+
+        <h1 class="TitleDetail">DETALLE VEHICULO</h1>
+        <mat-card class="cardmainVehiculo example-card mat-elevation-z8">
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '1 / 1'}" class="title">PLACA:</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '2 / 2' }" class="value">{{detalleSolicitud.placa_vehiculo}}</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '3 / 3' }" class="title">MARCA :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '4 / 4' }" class="value">{{detalleSolicitud.marca_vehiculo}}</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '5 / 5' }" class="title">COLOR :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '6 / 6' }" class="value">{{detalleSolicitud.color}}</p>
+
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '7 / 7' }" class="title"># CHASIS :</p>
+            <p [ngStyle]="{'grid-row': '2/2', 'grid-column': '8 / 8' }" class="value">{{detalleSolicitud.numero_chasis}}</p>
+
+        </mat-card>
+    </div>
+
+    <div class="DetalleAjuntos">
+        <h1 class="TitleDetail">DOCUMENTOS</h1>
+        <mat-card class="cardmainVehiculo example-card mat-elevation-z8">
+
+        </mat-card>
+    </div>
+
+</div>

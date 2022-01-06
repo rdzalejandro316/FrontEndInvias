@@ -1,0 +1,61 @@
+.ContainerPath {
+    display: flex;
+}
+
+.BtnBack {
+    align-self: center;
+    margin-left: 20px;
+    font-size: 40px;
+}
+
+.titleBack {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.ContainerDetaller {
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.DetallePeticionario {
+    display: grid;
+    grid-template-rows: 50px auto;
+}
+
+.cardmain {
+    margin: 30px 50px 30px 50px;
+    display: grid;
+    grid-template-rows: REPEAT(5, 30px);
+    grid-template-columns: Auto 200px Auto 200px Auto 200px Auto 200px;
+    grid-row-gap: 10px;
+}
+
+.TitleDetail {
+    align-self: end;
+    margin-left: 50px;
+    font-size: 30px;
+    color: var(--color-main);
+}
+
+.title {
+    text-align: right;
+    font-weight: bold;
+    align-self: center;
+    font-size: 14px;
+}
+
+.value {
+    text-align: left;
+    margin-left: 10px;
+    align-self: center;
+    font-size: 14px;
+}
+
+.cardmainVehiculo {
+    margin: 30px 50px 30px 50px;
+    display: grid;
+    grid-template-rows: REPEAT(3, 30px);
+    grid-template-columns: Auto 200px Auto 200px Auto 200px Auto 200px;
+    grid-row-gap: 10px;
+}
