@@ -1,0 +1,69 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    /* visibility: hidden;
+    opacity: 0; */
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 50%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    display: grid;
+    grid-template-rows: 100px 80px 100px 50px;
+}
+
+.ContainericonPopUp {
+    align-self: center;
+    justify-self: center;
+}
+
+.iconPopUp {
+    transform: scale(3);
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    align-self: center;
+}
+
+.ContainerTipoNota {
+    display: contents;
+    justify-self: center;
+}
+
+.content {
+    display: contents;
+}
+
+.BtnContainer {
+    justify-self: center
+}
+
+.btnStlyePopUp {
+    margin: 5px;
+    background-color: var(--color-main);
+    color: white;
+    width: 100px;
+    justify-self: center;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+    .popup {
+        width: 70%;
+    }
+}

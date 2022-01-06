@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, AfterViewInit,ViewChild,ElementRef, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 
 import { SolicitudesIterno, EstadoSolicitudes } from '../models/Solicitudes'
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +8,7 @@ import { RepositoryService } from '../shared/repository.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { FilterTypes, StateTie, BtnStateType } from '../shared/Helpers';
+import { FilterTypes, StateTie, BtnStateType, InterventoriaParamentros } from '../shared/Helpers';
 
 import * as XLSX from 'xlsx';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -25,37 +25,37 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
   @Input() estadoInput!: StateTie;
   @Input() UrlStateTie: string = "";
+  @Input() BtnNota!: BtnStateType;
   @Input() BtnAccept!: BtnStateType;
   @Input() BtnCancel!: BtnStateType;
 
   @Output() newItemEvent = new EventEmitter<StateTie>();
 
-  
+  //interventoria
+  showPopUp: boolean = false;  
 
-  sucesfullChangeState(value: StateTie)
-  {
+
+  sucesfullChangeState(value: StateTie) {
     this.newItemEvent.emit(value);
   }
 
   displayedColumns: string[] = ['check', 'id_solicitud', 'fecha', 'nombre_peticionario', 'tipo_peticionario', 'nombre_peaje', 'estado_tie_interno', 'placa_vehiculo', 'opciones'];
 
   //#region table
+  @ViewChild('TABLE', { static: true }) table!: ElementRef;
   public dataSource = new MatTableDataSource<SolicitudesIterno>();
+  //#endregion
+
+  //#region filtros
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   FilterTypes = FilterTypes;
-  //#endregion
 
-  //#region  elements ref
-  //@ViewChild('TABLE') table!: ElementRef;
-  @ViewChild('TABLE', { static: true }) table!: ElementRef;
-
-
-  FilterSolicitud:string = '';
-  FilterFecha:string = '';
-  FilterPeticionario:string = '';
-  FilterTipo:string = '';
-  FilterPeaje:string = '';  
+  FilterSolicitud: string = '';
+  FilterFecha: string = '';
+  FilterPeticionario: string = '';
+  FilterTipo: string = '';
+  FilterPeaje: string = '';
 
   //#endregion
 
@@ -102,19 +102,18 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
   }
 
   ClearFilters() {
-    this.FilterSolicitud =  '';       
-    this.FilterFecha= '';
+    this.FilterSolicitud = '';
+    this.FilterFecha = '';
     this.FilterPeticionario = '';
     this.FilterTipo = '';
-    this.FilterPeaje = '';    
+    this.FilterPeaje = '';
     this.dataSource.filter = "";
   }
 
   ExportTable() {
     try {
 
-      //const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);      
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);      
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       XLSX.writeFile(wb, 'solicitudes.xlsx');
@@ -126,7 +125,6 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
 
   //#endregion 
-
 
 
   Accept(idest: number, id_solicitud: number) {
@@ -141,13 +139,17 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
           NewStateTie = StateTie.Aprobada
           break
         case StateTie.Aprobada:
-          message = "Usted desea autorizar la solicitud:" + id_solicitud + "?";
+          message = "Usted desea verificar la solicitud:" + id_solicitud + "?";
+          NewStateTie = StateTie.Verificada
+          break
+        case StateTie.Verificada:
+          message = "Usted desea enviar al aprobador parcial la solicitud:" + id_solicitud + "?";
+          NewStateTie = StateTie.Parcial
+          break
+        case StateTie.Parcial:
+          message = "Usted desea enviar autorizar la solicitud:" + id_solicitud + "?";
           NewStateTie = StateTie.Autorizada
           break
-        // case StateTie.Rechazada:
-        //   message = "Usted desea rechazar la solicitud:" + id_solicitud;
-        //   NewStateTie = StateTie.Rechazada
-        //   break
       }
 
       var confirmation = confirm(message);
@@ -165,7 +167,7 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
         /////////// insert estado nuevo en falso para se visualisado en los otros filtros        
         const estados_nuevos = {
           id_solicitud_estado: id_solicitud,
-          estado: NewStateTie.toString(),          
+          estado: NewStateTie.toString(),
           fecha_estado: new Date().toISOString(),
           check_estado: false,
           estado_tie_interno: "",
@@ -207,8 +209,8 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
         const estados_nuevos = {
           id_solicitud_estado: id_solicitud,
-          estado: NewStateTie.toString(),          
-          fecha_estado:  new Date().toISOString(),
+          estado: NewStateTie.toString(),
+          fecha_estado: new Date().toISOString(),
           check_estado: false,
           estado_tie_interno: "",
           nota: "",
@@ -226,6 +228,35 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
     catch (e) {
       window.alert("error EN Accept:" + e);
     }
+  }
+
+
+
+  Note() {    
+    this.showPopUp = true;
+  }
+
+  ConfirmatioNote(accept: InterventoriaParamentros) {
+    try {
+      this.showPopUp = false;
+
+      if (accept.succesfull) 
+      {        
+        const inter = {
+          idestado: 107,
+          estado_tie_interno: accept.tipo
+        };
+        
+        var a = this.repoService.update('solicitudes/estadointerventoria', inter);
+        window.alert("la interventoria fue exitosa");
+        this.getAllTieState();
+
+      }
+    }
+    catch (e) {
+      window.alert("error ConfirmatioNote:" + e);
+    }
+
   }
 
 

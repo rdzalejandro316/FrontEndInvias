@@ -20,6 +20,8 @@ export enum TypesPopUp {
     Ninguna = "Ninguna",
     Solicitada = "Solicitada",
     Aprobada = "Aprobada",
+    Verificada = "Verificada",
+    Parcial = "Parcial",
     Autorizada = "Autorizada",
     Rechazada = "Rechazada",
     Cancelada = "Cancelada"
@@ -36,4 +38,11 @@ export enum TypesPopUp {
 
     visible:boolean = true;
     titulo:string = '';
+  }
+
+
+  export class InterventoriaParamentros {
+    succesfull:boolean = true;
+    tipo:string = '';
+    nota:string = '';;
   }

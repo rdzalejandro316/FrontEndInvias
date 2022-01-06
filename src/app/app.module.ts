@@ -54,6 +54,7 @@ import { MenuTopComponent } from './menu-top/menu-top.component';
 import { SolicitudIndividualComponent } from './solicitud-individual/solicitud-individual.component';
 import { PopUpMessageComponent } from './pop-up-message/pop-up-message.component';
 import { SolicitudesInternoComponent } from './solicitudes-interno/solicitudes-interno.component';
+import { InterventoriaComponent } from './interventoria/interventoria.component';
 
 
 
@@ -65,7 +66,8 @@ import { SolicitudesInternoComponent } from './solicitudes-interno/solicitudes-i
     MenuTopComponent,
     SolicitudIndividualComponent,
     PopUpMessageComponent,
-    SolicitudesInternoComponent
+    SolicitudesInternoComponent,
+    InterventoriaComponent
   ],
   imports: [
     BrowserModule,

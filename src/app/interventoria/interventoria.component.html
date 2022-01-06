@@ -1,0 +1,29 @@
+<div *ngIf="ShowPopUp" id="popup1" class="overlay">
+    <div class="popup">
+
+        <h1 class="title">Validacion por interventoria</h1>
+
+        <div class="ContainerTipoNota">
+            <mat-form-field appearance="fill">
+                <mat-label>Tipo Nota</mat-label>
+                <select matNativeControl required [(ngModel)]="tipo">
+                  <option value="Verificada">Verificada</option>
+                  <option value="Rechazada">Rechazada</option>                  
+                </select>
+            </mat-form-field>
+        </div>
+
+        <div class="content">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Nota</mat-label>
+                <textarea [(ngModel)]="nota" matInput placeholder="ingresa una nota..."></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="BtnContainer">
+            <button mat-stroked-button class="btnStlyePopUp" (click)="BtnSave(true)">Aceptar</button>
+            <button mat-stroked-button class="btnStlyePopUp" (click)="BtnCancel(false)">Cancelar</button>
+        </div>
+
+    </div>
+</div>
