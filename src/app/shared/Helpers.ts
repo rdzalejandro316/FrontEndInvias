@@ -46,3 +46,15 @@ export enum TypesPopUp {
     tipo:string = '';
     nota:string = '';;
   }
+
+
+  export class EstadosMsivo {    
+    
+    constructor(id_solicitud:number,idestado: number) 
+    {     
+      this.id_solicitud= id_solicitud;
+      this.idestado = idestado;
+    }
+    id_solicitud:number = 0;    
+    idestado:number = 0;
+  }

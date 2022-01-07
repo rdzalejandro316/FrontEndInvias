@@ -8,10 +8,11 @@ import { RepositoryService } from '../shared/repository.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { FilterTypes, StateTie, BtnStateType, InterventoriaParamentros } from '../shared/Helpers';
+import { FilterTypes, StateTie, BtnStateType, InterventoriaParamentros,EstadosMsivo } from '../shared/Helpers';
 
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
 
 
 
@@ -31,8 +32,11 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
   @Output() newItemEvent = new EventEmitter<StateTie>();
 
+
+
+
   //interventoria
-  showPopUp: boolean = false;  
+  showPopUp: boolean = false;
 
 
   sucesfullChangeState(value: StateTie) {
@@ -59,7 +63,7 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
   //#endregion
 
-  constructor(private repoService: RepositoryService,private router: Router) { }
+  constructor(private repoService: RepositoryService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllTieState();
@@ -232,7 +236,115 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
 
 
 
-  Note() {    
+
+  solicitudesMasivo: EstadosMsivo[] = [];
+  check(flag: boolean, idestado: number,id_solicitud: number) {
+    if (flag) 
+    {
+      this.solicitudesMasivo.push(new EstadosMsivo(id_solicitud,idestado));  
+    }
+    else {
+        const componentIndex = this.solicitudesMasivo.indexOf(new EstadosMsivo(id_solicitud,idestado));
+        this.solicitudesMasivo.splice(componentIndex, 1);
+    }
+
+  }
+
+
+
+
+  Masivo() {
+    try 
+    {
+        //window.alert("x");
+        //window.alert(this.solicitudesMasivo.length);
+
+        if(this.solicitudesMasivo.length>0)
+        {
+
+          var confirmation = confirm("usted desea realizar el cambio de estado masivo a las solictudes seleccionadas?");
+
+          if(confirmation)
+          {          
+            this.solicitudesMasivo.forEach(e =>
+                //console.log(e.id_solicitud)
+                this.MasivoAccept(e.idestado,e.id_solicitud)
+            );
+
+            window.alert("el cambio de estado masivo fue existoso");
+            this.getAllTieState();
+            this.sucesfullChangeState(this.GetNewState());
+          }
+        }
+        else
+        {
+          window.alert("no se ha seleccionado ninguna solicitud");          
+        }
+
+    }
+    catch (e) {
+      window.alert("error Masivo:" + e);
+    }
+
+  }
+
+  GetNewState(): StateTie
+  {
+    let NewStateTie = StateTie.Ninguna;
+    switch (this.estadoInput) {
+      case StateTie.Solicitada:          
+        NewStateTie = StateTie.Aprobada
+        break
+      case StateTie.Aprobada:          
+        NewStateTie = StateTie.Verificada
+        break
+      case StateTie.Verificada:          
+        NewStateTie = StateTie.Parcial
+        break
+      case StateTie.Parcial:          
+        NewStateTie = StateTie.Autorizada
+        break
+    }
+
+    return NewStateTie;
+  }
+
+  MasivoAccept(idest: number, id_solicitud: number) {
+    try {
+      
+      let NewStateTie = this.GetNewState();
+            
+        ///// se marcar el estado anterior para no incluirlo en los filtros de las solicitudes
+        const estados = {
+          idestado: idest,
+          check_estado: true
+        };
+
+        var a = this.repoService.update('solicitudes/estadoanterior', estados);
+
+        /////////// insert estado nuevo en falso para se visualisado en los otros filtros        
+        const estados_nuevos = {
+          id_solicitud_estado: id_solicitud,
+          estado: NewStateTie.toString(),
+          fecha_estado: new Date().toISOString(),
+          check_estado: false,
+          estado_tie_interno: "",
+          nota: "",
+        };
+
+        var b = this.repoService.create('solicitudes/nuevoestado', estados_nuevos);
+      
+    }
+    catch (e) {
+      window.alert("error EN Accept:" + e);
+    }
+  }
+
+
+
+
+
+  Note() {
     this.showPopUp = true;
   }
 
@@ -240,13 +352,12 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
     try {
       this.showPopUp = false;
 
-      if (accept.succesfull) 
-      {        
+      if (accept.succesfull) {
         const inter = {
           idestado: 107,
           estado_tie_interno: accept.tipo
         };
-        
+
         var a = this.repoService.update('solicitudes/estadointerventoria', inter);
         window.alert("la interventoria fue exitosa");
         this.getAllTieState();
@@ -260,11 +371,12 @@ export class TarjetaTieComponent implements OnInit, AfterViewInit {
   }
 
 
-  Detalle(idsolicitud:number){
-    this.router.navigateByUrl('/detalle-solicitud/'+idsolicitud);
-    
-      
+  Detalle(idsolicitud: number) {
+    this.router.navigateByUrl('/detalle-solicitud/' + idsolicitud);
   }
+
+
+
 
 
 }

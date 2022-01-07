@@ -18,13 +18,14 @@ export class EstadoSolicitudes{
     estado: string = "";
     fecha_estado: string = "";    
     nota: string = "";    
-    check_estado : boolean = false;
+    check_estado : boolean = true;
     estado_tie_interno: string = "";
 }
 
 
 
-export class SolicitudesIterno{
+export class SolicitudesIterno
+{    
     id_solicitud: number  = 0;
     id_peticionario: string = "";
     fecha: string = "";    

@@ -1,6 +1,6 @@
 .ContainerMain {
     display: grid;
-    grid-template-rows: 150px auto;
+    grid-template-rows: 150px auto auto;
 }
 
 .ContainerFilter {
@@ -29,6 +29,10 @@
     margin: 5px;
     background-color: var(--color-main);
     color: white;
+}
+
+.ContainerMasivo {
+    background-color: blue;
 }
 
 .container-table {
