@@ -5,7 +5,7 @@
 
 .ContainerFilter {
     display: grid;
-    grid-template-columns: auto 300px;
+    grid-template-columns: auto 400px;
     background-color: whitesmoke;
 }
 
@@ -21,8 +21,8 @@
 .ContainerBtnTable {
     align-self: center;
     justify-self: center;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 .BtnStyleFilter {

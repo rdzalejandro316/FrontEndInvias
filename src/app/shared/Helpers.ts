@@ -13,7 +13,7 @@ export enum TypesPopUp {
     peticionario,
     tipo,
     peaje,
-    estado
+    nota
   }
 
   export enum StateTie {
@@ -42,6 +42,8 @@ export enum TypesPopUp {
 
 
   export class InterventoriaParamentros {
+    idsolicitud:number = 0;
+    idestado:number = 0;
     succesfull:boolean = true;
     tipo:string = '';
     nota:string = '';;

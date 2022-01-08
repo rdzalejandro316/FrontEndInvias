@@ -26,6 +26,7 @@ export class EstadoSolicitudes{
 
 export class SolicitudesIterno
 {    
+    check_table:boolean = false;
     id_solicitud: number  = 0;
     id_peticionario: string = "";
     fecha: string = "";    

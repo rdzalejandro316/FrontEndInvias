@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
+import { compileClassMetadata } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +23,20 @@ export class RepositoryService {
   }
  
 
-  public updateReturnConf (route: string, body : any) : number 
+  public CreateState(route: string, body : any) 
   {    
-    this.http.put<any>(this.createCompleteRoute(route, environment.urlAddress), body, this.generateHeaders()).subscribe(
-        data => { return Number(data)}
-    )    
     
-    return 0;
+    var valor = this.http.post<any>(this.createCompleteRoute(route, environment.urlAddress), body, this.generateHeaders());    
+    console.log("SERVICIO CREATE")
+    return valor;
+  }
+
+  public updateState(route: string, body : any) 
+  {    
+    
+    var valor = this.http.put<string>(this.createCompleteRoute(route, environment.urlAddress), body, this.generateHeaders());
+    console.log("SERVICIO UPDATE")
+    return valor;      
   }
 
   // public delete = (route: string) => {

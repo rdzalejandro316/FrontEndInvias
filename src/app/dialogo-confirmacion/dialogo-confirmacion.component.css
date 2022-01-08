@@ -1,0 +1,19 @@
+.overflow {
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.titleConfirmation {
+    font-size: 30px;
+    text-align: center;
+}
+
+.containerBtn {
+    justify-content: center;
+}
+
+.BtnStlye {
+    background-color: var(--color-main);
+    color: white;
+}
